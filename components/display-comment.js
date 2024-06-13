@@ -1,8 +1,8 @@
 "use client";
 import classes from "./comments.module.css";
 import { useState, useEffect } from "react";
-import Button from 'react-bootstrap/Button';
-
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
 export default function DisplayComment(props) {
   const [replies, setReplies] = useState();
   const [reply, setReply] = useState();
@@ -62,7 +62,7 @@ export default function DisplayComment(props) {
       line = "";
     } else {
       statusClasses = classes.singleCommentColor;
-      line=<hr />
+      line = <hr />;
     }
     commentStatusClasses = classes.commentText;
   } else {
@@ -79,20 +79,51 @@ export default function DisplayComment(props) {
       <div className={`${statusClasses}`}>
         <p className={`${commentStatusClasses} `}>{props.comment.comment}</p>
         {line}
-        
+
         {/* {props.comment.comment? props.comment.comment: props.comment.reply? props.comment.reply: "comment"} */}
         {/* {comment.comment || (comment.reply && comment.reply.comment.comment)} */}
-        {showCommentField && <div>
-          <input
-            type="text"
-            className={classes["comment-align"]}
-            onChange={(event) => setReply(event.target.value)}
-          />
-          <button type="button" className={classes["comment-btn2"]} onClick={() => commentHandler(props.comment.id)}>submit</button>
-        </div>}
+        {showCommentField && (
+          <div className="mt-3 px-3 mb-2">
+            <Form.Group className="mb-3">
+              
+              <Form.Control
+                placeholder="متن پاسخ"
+                type="text"
+                onChange={(event) => setReply(event.target.value)}
+                
+              />
+            </Form.Group>
+            <Button
+              variant="primary"
+              type="button"
+              onClick={() => commentHandler(props.comment.id)}
+            >
+              ارسال
+            </Button>
+            {/* <input
+              type="text"
+              className={classes["comment-align"]}
+              onChange={(event) => setReply(event.target.value)}
+            />
+            <button
+              type="button"
+              className={classes["comment-btn2"]}
+              onClick={() => commentHandler(props.comment.id)}
+            >
+              submit
+            </button> */}
+          </div>
+        )}
 
         {!showCommentField && (
-          <Button variant="primary" type="button" className={`${classes["comment-btn2"]} ${replyCommentsClasses}`} onClick={() => setShowCommentField(!showCommentField)}>پاسخ</Button>
+          <Button
+            variant="primary"
+            type="button"
+            className={`${classes["comment-btn2"]} ${replyCommentsClasses}`}
+            onClick={() => setShowCommentField(!showCommentField)}
+          >
+            پاسخ
+          </Button>
           // <button
           //   type="button"
           //   className={`${classes["comment-btn2"]} ${replyCommentsClasses}`}
@@ -100,23 +131,19 @@ export default function DisplayComment(props) {
           //   onClick={() => setShowCommentField(!showCommentField)}
           // >
           //   پاسخ
-            
+
           // </button>
         )}
         {replies &&
           replies.map((reply, index) => (
             <div key={reply.id} className={classes["comment-p"]}>
-               
               <DisplayComment
                 comment={reply}
                 setComments={props.setComments}
                 commentIndex={props.commentIndex}
               />
-             
             </div>
-            
           ))}
-           
       </div>
     </>
   );
