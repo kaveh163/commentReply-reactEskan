@@ -48,7 +48,7 @@ export default function Comments() {
         />
         <button className={classes["comment-btn"]}>create comment</button>
         {comments && comments.map((comment, index) => (
-            <DisplayComment key={comment.id} comment={comment} setComments={setComments}/>
+            <DisplayComment key={comment.id} comment={comment} setComments={setComments} commentIndex={index}/>
         ))}
       </form>
     </>

@@ -32,9 +32,22 @@ export default function DisplayComment(props) {
     }
     fetchReplies();
   }, [props.comment]);
+
+  console.log("commentreply", props.comment.reply);
+  let statusClasses = "";
+  if(props.comment.reply === null) {
+    if(props.commentIndex % 2 === 0) {
+      statusClasses = classes.evenCommentColor;
+    } else {
+      statusClasses = classes.singleCommentColor;
+    }
+    
+  }
+
+
   return (
     <>
-      <div>
+      <div className={`${statusClasses}`}>
         {props.comment.comment}
         {/* {props.comment.comment? props.comment.comment: props.comment.reply? props.comment.reply: "comment"} */}
         {/* {comment.comment || (comment.reply && comment.reply.comment.comment)} */}
@@ -53,7 +66,7 @@ export default function DisplayComment(props) {
         {replies &&
           replies.map((reply, index) => (
             <div key={reply.id} className={classes["comment-p"]}>
-              <DisplayComment comment={reply} setComments={props.setComments} />
+              <DisplayComment comment={reply} setComments={props.setComments} commentIndex={props.commentIndex}/>
             </div>
           ))}
       </div>

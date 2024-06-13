@@ -21,3 +21,9 @@
 .comment-p {
     margin-left: 20px;
 }
+.evenCommentColor {
+    background-color: blue;
+}
+.singleCommentColor {
+    background-color: green;
+}
