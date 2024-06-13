@@ -2,11 +2,11 @@
 import classes from "./comments.module.css";
 import { useState, useEffect } from "react";
 
-
 export default function DisplayComment(props) {
   const [replies, setReplies] = useState();
   const [reply, setReply] = useState();
   const [hasReplies, setHasReplies] = useState(false);
+  const [showCommentField, setShowCommentField] = useState(false);
   async function commentHandler(id) {
     const response = await fetch("/api/reply", {
       method: "POST",
@@ -14,7 +14,7 @@ export default function DisplayComment(props) {
       headers: { "Content-Type": "application/json" },
     });
     const data = await response.json();
-    
+    setShowCommentField(!showCommentField);
     const fetchedResponse = await fetch("/api/comments");
     const fetchedComments = await fetchedResponse.json();
     props.setComments(fetchedComments);
@@ -23,18 +23,17 @@ export default function DisplayComment(props) {
   async function hasReplyComments(id) {
     const response = await fetch("/api/replies", {
       method: "POST",
-      body: JSON.stringify({id}),
-      headers: {"Content-Type" : "application/json"}
+      body: JSON.stringify({ id }),
+      headers: { "Content-Type": "application/json" },
     });
     const commentreplies = await response.json();
     if (commentreplies.results.length > 0) {
-      console.log("hascommentreplies", commentreplies)
-      setHasReplies(true)
+      console.log("hascommentreplies", commentreplies);
+      setHasReplies(true);
     } else {
-      console.log("hascommentreplies", commentreplies)
+      console.log("hascommentreplies", commentreplies);
       setHasReplies(false);
     }
-    
   }
   useEffect(() => {
     async function fetchReplies() {
@@ -44,7 +43,7 @@ export default function DisplayComment(props) {
         headers: { "Content-Type": "application/json" },
       });
       const data = await response.json();
-      
+
       setReplies(data.results);
     }
     hasReplyComments(props.comment.id);
@@ -52,17 +51,16 @@ export default function DisplayComment(props) {
     fetchReplies();
   }, [props.comment]);
 
- 
   let statusClasses = "";
-  let replyCommentsClasses = ""
-  if(props.comment.reply === null) {
-    if(props.commentIndex % 2 === 0) {
+  let replyCommentsClasses = "";
+  if (props.comment.reply === null) {
+    if (props.commentIndex % 2 === 0) {
       statusClasses = classes.evenCommentColor;
     } else {
       statusClasses = classes.singleCommentColor;
     }
   }
-  if(hasReplies) {
+  if (hasReplies) {
     replyCommentsClasses = classes.hideReply;
   } else {
     replyCommentsClasses = classes.showReply;
@@ -74,23 +72,34 @@ export default function DisplayComment(props) {
         {props.comment.comment}
         {/* {props.comment.comment? props.comment.comment: props.comment.reply? props.comment.reply: "comment"} */}
         {/* {comment.comment || (comment.reply && comment.reply.comment.comment)} */}
-        <input
-          type="text"
-          className={classes["comment-align"]}
-          onChange={(event) => setReply(event.target.value)}
-        />
-        <button
-          type="button"
-          className={`${classes["comment-btn2"]} ${replyCommentsClasses}`}
-          onClick={() => commentHandler(props.comment.id)}
-        >
-          reply
-          {/* {hasReplies ? "" : "reply"} */}
-        </button>
+        {showCommentField && <div>
+          <input
+            type="text"
+            className={classes["comment-align"]}
+            onChange={(event) => setReply(event.target.value)}
+          />
+          <button type="button" className={classes["comment-btn2"]} onClick={() => commentHandler(props.comment.id)}>submit</button>
+        </div>}
+
+        {!showCommentField && (
+          <button
+            type="button"
+            className={`${classes["comment-btn2"]} ${replyCommentsClasses}`}
+            //onClick={() => commentHandler(props.comment.id)}
+            onClick={() => setShowCommentField(!showCommentField)}
+          >
+            reply
+            {/* {hasReplies ? "" : "reply"} */}
+          </button>
+        )}
         {replies &&
           replies.map((reply, index) => (
             <div key={reply.id} className={classes["comment-p"]}>
-              <DisplayComment comment={reply} setComments={props.setComments} commentIndex={props.commentIndex}/>
+              <DisplayComment
+                comment={reply}
+                setComments={props.setComments}
+                commentIndex={props.commentIndex}
+              />
             </div>
           ))}
       </div>
