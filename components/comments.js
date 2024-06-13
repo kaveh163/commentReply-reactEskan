@@ -2,6 +2,9 @@
 import { useState, useEffect } from "react";
 import classes from "./comments.module.css";
 import DisplayComment from "./display-comment";
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 export default function Comments() {
   const [comments, setComments] = useState();
   const [comment, setComment] = useState();
@@ -41,6 +44,7 @@ export default function Comments() {
   console.log("comments", comments);
   return (
     <>
+    
       <form action="" onSubmit={handleSubmit}>
         <input
           type="text"
