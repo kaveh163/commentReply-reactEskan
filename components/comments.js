@@ -9,8 +9,8 @@ import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Form from "react-bootstrap/Form";
 export default function Comments() {
-  const [comments, setComments] = useState();
-  const [comment, setComment] = useState();
+  const [comments, setComments] = useState("");
+  const [comment, setComment] = useState("");
   async function handleSubmit(event) {
     event.preventDefault();
 

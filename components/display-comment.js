@@ -4,8 +4,8 @@ import { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 export default function DisplayComment(props) {
-  const [replies, setReplies] = useState();
-  const [reply, setReply] = useState();
+  const [replies, setReplies] = useState("");
+  const [reply, setReply] = useState("");
   const [hasReplies, setHasReplies] = useState(false);
   const [showCommentField, setShowCommentField] = useState(false);
   async function commentHandler(id) {
@@ -119,7 +119,7 @@ export default function DisplayComment(props) {
           <Button
             variant="primary"
             type="button"
-            className={`${classes["comment-btn2"]} ${replyCommentsClasses}`}
+            className={`${classes["comment-btn2"]} ${replyCommentsClasses} me-3`}
             onClick={() => setShowCommentField(!showCommentField)}
           >
             پاسخ
