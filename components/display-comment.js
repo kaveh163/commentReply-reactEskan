@@ -55,14 +55,16 @@ export default function DisplayComment(props) {
   let statusClasses = "";
   let replyCommentsClasses = "";
   let commentStatusClasses = "";
-  let line = "";
+  let line = <div></div>;
   if (props.comment.reply === null) {
     if (props.commentIndex % 2 === 0) {
       statusClasses = classes.evenCommentColor;
-      line = "";
+      line = <div></div>
     } else {
       statusClasses = classes.singleCommentColor;
-      line = <hr />;
+      line = <div>
+        <hr/>
+      </div>;
     }
     commentStatusClasses = classes.commentText;
   } else {
