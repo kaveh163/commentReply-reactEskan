@@ -1,6 +1,7 @@
 "use client";
 import classes from "./comments.module.css";
 import { useState, useEffect } from "react";
+import Button from 'react-bootstrap/Button';
 
 export default function DisplayComment(props) {
   const [replies, setReplies] = useState();
@@ -53,12 +54,19 @@ export default function DisplayComment(props) {
 
   let statusClasses = "";
   let replyCommentsClasses = "";
+  let commentStatusClasses = "";
+  let line = "";
   if (props.comment.reply === null) {
     if (props.commentIndex % 2 === 0) {
       statusClasses = classes.evenCommentColor;
+      line = "";
     } else {
       statusClasses = classes.singleCommentColor;
+      line=<hr />
     }
+    commentStatusClasses = classes.commentText;
+  } else {
+    commentStatusClasses = classes.commentAnswer;
   }
   if (hasReplies) {
     replyCommentsClasses = classes.hideReply;
@@ -69,7 +77,9 @@ export default function DisplayComment(props) {
   return (
     <>
       <div className={`${statusClasses}`}>
-        {props.comment.comment}
+        <p className={`${commentStatusClasses} `}>{props.comment.comment}</p>
+        {line}
+        
         {/* {props.comment.comment? props.comment.comment: props.comment.reply? props.comment.reply: "comment"} */}
         {/* {comment.comment || (comment.reply && comment.reply.comment.comment)} */}
         {showCommentField && <div>
@@ -82,26 +92,31 @@ export default function DisplayComment(props) {
         </div>}
 
         {!showCommentField && (
-          <button
-            type="button"
-            className={`${classes["comment-btn2"]} ${replyCommentsClasses}`}
-            //onClick={() => commentHandler(props.comment.id)}
-            onClick={() => setShowCommentField(!showCommentField)}
-          >
-            reply
-            {/* {hasReplies ? "" : "reply"} */}
-          </button>
+          <Button variant="primary" type="button" className={`${classes["comment-btn2"]} ${replyCommentsClasses}`} onClick={() => setShowCommentField(!showCommentField)}>پاسخ</Button>
+          // <button
+          //   type="button"
+          //   className={`${classes["comment-btn2"]} ${replyCommentsClasses}`}
+          //   //onClick={() => commentHandler(props.comment.id)}
+          //   onClick={() => setShowCommentField(!showCommentField)}
+          // >
+          //   پاسخ
+            
+          // </button>
         )}
         {replies &&
           replies.map((reply, index) => (
             <div key={reply.id} className={classes["comment-p"]}>
+               
               <DisplayComment
                 comment={reply}
                 setComments={props.setComments}
                 commentIndex={props.commentIndex}
               />
+             
             </div>
+            
           ))}
+           
       </div>
     </>
   );

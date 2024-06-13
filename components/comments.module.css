@@ -19,17 +19,40 @@
     margin-bottom: 10px;
 }
 .comment-p {
-    margin-left: 20px;
+    /* margin-left: 20px; */
+}
+.border {
+    /* border-bottom: 1px solid black; */
 }
 .evenCommentColor {
-    background-color: blue;
+    background-color: #b9d5f5!important;
+    border-bottom: 2px dashed black;
+    margin-bottom: 8px;
+
 }
 .singleCommentColor {
-    background-color: green;
+    background-color: white;
+    border-bottom: 2px dashed black;
+    margin-bottom: 8px;
 }
 .hideReply {
     display: none;
 }
 .showReply {
     display: block;
+}
+.commentText {
+    box-shadow: 1px 2px blue ;
+    width: 96%;
+    border: 1px solid #00f;
+    padding: 8px;
+    margin-right: 12px;
+
+}
+.commentAnswer {
+    width: 94%;
+    box-shadow: 3px 6px #bdc7cd;
+    padding: 10px;
+    margin: auto;
+
 }
