@@ -27,3 +27,9 @@
 .singleCommentColor {
     background-color: green;
 }
+.hideReply {
+    display: none;
+}
+.showReply {
+    display: block;
+}

@@ -7,6 +7,7 @@ export default function Comments() {
   const [comment, setComment] = useState();
   async function handleSubmit(event) {
     event.preventDefault();
+    
     try {
       await postComments();
     } catch (error) {
@@ -21,6 +22,7 @@ export default function Comments() {
       if (!response.ok) {
         throw new Error("Failed to fetch data");
       }
+      setComment("");
       const data = await response.json();
       const fetchedResponse = await fetch("/api/comments");
       const fetchedComments = await fetchedResponse.json();
@@ -45,6 +47,8 @@ export default function Comments() {
           onChange={(event) => setComment(event.target.value)}
           placeholder="Enter Comment"
           className={classes["input-align"]}
+          value={comment}
+          
         />
         <button className={classes["comment-btn"]}>create comment</button>
         {comments && comments.map((comment, index) => (
