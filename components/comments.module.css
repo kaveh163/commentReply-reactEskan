@@ -1,0 +1,23 @@
+.input-align {
+    margin: auto;
+    display: block;
+    margin-top: 20px;
+}
+.comment-btn {
+    margin: auto;
+    display: block;
+    margin-top: 4px;
+}
+.comment-align, .comment-btn2 {
+    display: block;
+    margin-top: 15px;
+}
+.comment-align {
+    margin-top: 5px;
+}
+.comment-btn2 {
+    margin-bottom: 10px;
+}
+.comment-p {
+    margin-left: 20px;
+}
